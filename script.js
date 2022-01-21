@@ -1,50 +1,3 @@
-const quizQuestions = [
-    {
-        question:   'Who is the father of computer science?',
-        a: 'Charles Babbage',
-        b: 'Dennis Ritchie',
-        c: 'AT&T Bells',
-        d: 'Marconi',
-        correct: 'a'
-    },
-
-    {
-        question: 'Which of the following is the framework of Python?',
-        a:  'Express.js',
-        b:  'Spring',
-        c:  'Django',
-        d:  'Laravel',
-        correct:    'c'
-    },
-
-    {
-        question: 'Animations and interactivity with the user on web pages can be done by?',
-        a: 'JavaScript',
-        b: 'C',
-        c: 'C#',
-        d: 'PHP',
-        correct: 'a'
-    },
-
-    {
-        question: 'Which of the following is the correct syntax to display "Hello World" in an alert box using JavaScript?',
-        a: 'alertbox("Hello World");',
-        b: 'msg("Hello World");',
-        c: 'msgbox("Hello World");',
-        d: 'alert("Hello World");',
-        correct: 'd'
-    },
-
-    {
-        question: 'Who is the mother of Computer Science?',
-        a: 'Grace Hopper',
-        b: 'Ada Lovelace',
-        c: 'Marie Curie',
-        d: 'Margaret Hamilton',
-        correct: 'b'
-    }
-]
-
 const questionEl = document.getElementById('question');
 const quiz = document.getElementById('quiz');
 const aText = document.getElementById('a-text');
@@ -52,37 +5,108 @@ const bText = document.getElementById('b-text');
 const cText = document.getElementById('c-text');
 const dText = document.getElementById('d-text');
 const answerEls = document.querySelectorAll(".answer");
+const checkAnsEls = document.querySelectorAll(".checkbox");
+
 
 const submit = document.querySelector('button');
 
-let currentQuestion = 0;
-let score = 0;
+let quizLength = prompt('Enter the number of questions you want to solve:');
+quizLength = parseInt(quizLength);
 
+let score = 0;
+let firstVal = undefined;
+let secondVal = undefined;
+let correctAnswer = undefined;
+let operator = undefined;
+let correctOperation = undefined;
+let count = 0;
 
 loadQuiz();
 
 function loadQuiz() {
+    count++;
     deSelectAnswers();
-    const currentQuizDate = quizQuestions[currentQuestion];
-    questionEl.innerText = currentQuizDate.question;
-    aText.innerText = currentQuizDate.a;
-    bText.innerText = currentQuizDate.b;
-    cText.innerText = currentQuizDate.c;
-    dText.innerText = currentQuizDate.d;
+    firstVal = Math.floor(Math.random() * 100);
+    secondVal = Math.floor(Math.random() * 100);
+    let checkOperation = Math.floor(Math.random() * 4);
+
+    switch(checkOperation){
+        case 0:
+            operator = "+";
+            correctAnswer = firstVal + secondVal;
+            break;
+        case 1:
+            operator = "-";
+            correctAnswer = firstVal - secondVal;
+            break;
+        case 2:
+            operator = "*";
+            correctAnswer = firstVal * secondVal;
+            break;
+        case 3:
+            operator = "/";
+            correctAnswer = firstVal / secondVal;
+            break;
+        default:
+            break;
+    }
+
+    const currentQuizData = `${count}. \t ${firstVal} ${operator} ${secondVal}`;
+    questionEl.innerText = currentQuizData;
+
+    const correctOptRan = Math.floor(Math.random() * 4);
+    switch(correctOptRan){
+        case 0:
+            aText.innerText = correctAnswer;
+            correctOperation = "a";
+            bText.innerText = Math.floor(Math.random() * 10000)-1000;
+            cText.innerText = Math.floor(Math.random() * 10000)-1000;
+            dText.innerText = Math.floor(Math.random() * 10000)-1000;
+            break;
+        case 1:
+            bText.innerText = correctAnswer;
+            correctOperation = "b";
+            aText.innerText = Math.floor(Math.random() * 10000)-1000;
+            cText.innerText = Math.floor(Math.random() * 10000)-1000;
+            dText.innerText = Math.floor(Math.random() * 10000)-1000;
+            break;
+        case 2:
+            cText.innerText = correctAnswer;
+            correctOperation = "c";
+            aText.innerText = Math.floor(Math.random() * 10000)-1000;
+            bText.innerText = Math.floor(Math.random() * 10000)-1000;
+            dText.innerText = Math.floor(Math.random() * 10000)-1000;
+            break;
+        case 3:
+            dText.innerText = correctAnswer;
+            correctOperation = "d";
+            aText.innerText = Math.floor(Math.random() * 10000)-1000;
+            bText.innerText = Math.floor(Math.random() * 10000)-1000;
+            cText.innerText = Math.floor(Math.random() * 10000)-1000;
+            break;
+        default:
+            break;
+    }
 }
 
 function getSelected(){
 
     let answer = undefined;
-    answerEls.forEach((answerEl) => {
-        if (answerEl.checked) answer = answerEl.id;
+    let userChose;
+
+    checkAnsEls.forEach((checkAnsEl,i) => {
+        if(checkAnsEl.checked){
+            userChose = i;
+        }
     });
+
+    answer = answerEls[userChose].innerText;
     return answer;
 }
 
 function deSelectAnswers(){
-    answerEls.forEach((answerEl) => {
-        answerEl.checked = false;
+    checkAnsEls.forEach((checkAnsEl) => {
+        checkAnsEl.checked = false;
     });
 }
 
@@ -90,33 +114,13 @@ submit.addEventListener('click', ()=>{
 
     const selectedAnswer = getSelected();
 
-    if (selectedAnswer === undefined) {
-        return;
-    }
+    if (selectedAnswer === undefined) return;
 
-    const answer = quizQuestions[currentQuestion].correct;
-    if (selectedAnswer == answer) {
-        score ++;
-    }
-    if (currentQuestion < quizQuestions.length-1) {
-        currentQuestion++;
-        loadQuiz();
-    } else {
+    if (selectedAnswer == correctAnswer) score ++;
+
+    if (count <= quizLength-1) loadQuiz(); 
+    else {
         quiz.innerHTML = `<h2>Quiz Complete.
-        You scored ${score} out of ${quizQuestions.length}</h2><button onclick="location.reload()">Retake Quiz</button>`;
+        You scored ${score} out of ${quizLength}</h2><button onclick="location.reload()">Retake Quiz</button>`;
     }
-
-
-    // const answer = getSelected();
-    // console.log(answer);
-
-    // currentQuestion++;
-    // if(currentQuestion < quizQuestions.length){
-    //     loadQuiz();
-    // }
-    // else
-    // {
-    //     alert('Quiz Completed');
-    // }
-
 });
