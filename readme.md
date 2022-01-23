@@ -4,7 +4,7 @@ It is a project that I first made in Assembly Language (ofcourse non-GUI), if yo
 
 [Click Here](https://github.com/labeshsharma/Random-Quiz-Generator-Assembly-Language)
 
-*_Note that this program only works in 8086 microprocessor emulators_*
+*_Note that the above linked program only work in 8086 microprocessor emulators_*
 
 The Assembly Language is a bit too complex for a regular user, therefore the project is some what shady. However, it was my first project in Assembly so I was very happy on completion but whatsoever, I was very hungary of putting this creativity on a plain site and that's when I started learning basic web programming. 
 
