@@ -8,14 +8,15 @@ It is a project that I first made in Assembly Language (ofcourse non-GUI), if yo
 
 The Assembly Language is a bit too complex for a regular user, therefore the project is some what shady. However, it was my first project in Assembly so I was very happy on completion but whatsoever, I was very hungary of putting this creativity on a plain site and that's when I started learning basic web programming. 
 
-# About project
+## About project
 
 This project is pretty straight forward. It prompts user at first place to enter number of questions he/she want to solve, and then it will keep asking you random airthmatic questions with random operations and options and at last, it will tell you your total score and the questions you have attempted.
 
 
 >The best thing about this site is that it will ask you as many questions as you have entered, say it 100, 1000, 100000 or even 100000000, you say it.
 
+### The Project is hosted at: [Random Quiz App](https://randomquizapp.netlify.app/)
 
-# Contribute
+#### Contribute
 
 I know there are many bugs in the site but I alone can't fix them all. I want you to contribute in this little project. Any pull request is more than welcome.
